@@ -1,23 +1,49 @@
-import logo from './logo.svg';
 import './App.css';
+import React, { useCallback, useEffect } from 'react';
+import {
+  createBrowserRouter,
+  RouterProvider,
+} from "react-router-dom";
+import Drones from 'pages/Drones';
+import Events from 'pages/Events';
+import Dashboard from 'pages/Dashboard';
+import axios from 'axios';
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Dashboard />,
+  },
+  {
+    path: "/events",
+    element: <Events />,
+  },
+
+  {
+    path: "/drones",
+    element: <Drones />,
+  }
+]);
+
 
 function App() {
+
+  useEffect(() => {
+    getSync();
+  }, []);
+
+  const getSync = useCallback(async () => {
+    try {
+      await axios.get(`${process.env.REACT_APP_CONTROL_URL}/control/api/syncronize`);
+      sessionStorage.setItem("timeFrom", new Date().toISOString());
+    } catch {
+    }
+  }, [])
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <RouterProvider router={router} />
     </div>
   );
 }
