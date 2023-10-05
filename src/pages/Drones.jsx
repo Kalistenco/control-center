@@ -1,4 +1,4 @@
-import { Alert, CircularProgress, Grid, Typography } from '@mui/material'
+import { Alert, Grid, Typography } from '@mui/material'
 import axios from 'axios';
 import Card from 'components/Card'
 import React, { useEffect, useState } from 'react'
@@ -16,25 +16,26 @@ const Drones = () => {
     //     return () => clearInterval(interval);
     // }, []);
 
-    const getDrones = async () => {
-        try {
-            var d = new Date();
-            d.setDate(d.getDate() - 5);
-            const response = await axios.get(`${process.env.REACT_APP_CONTROL_URL}/control/api/changes`, {
-                params: {
-                    timeFrom: d
-                }
-            });
-            setDrones(filterDrones(response.data));
-        } catch {
-            setError(true);
-            setSuccess(false);
-        }
-    }
+
 
     useEffect(() => {
+        const getDrones = async () => {
+            try {
+                var d = new Date();
+                d.setDate(d.getDate() - 5);
+                const response = await axios.get(`${process.env.REACT_APP_CONTROL_URL}/control/api/changes`, {
+                    params: {
+                        timeFrom: d
+                    }
+                });
+                setDrones(filterDrones(response.data));
+            } catch {
+                setError(true);
+                setSuccess(false);
+            }
+        }
         getDrones()
-    }, [getDrones])
+    }, [])
 
     const filterDrones = (data) => {
         if (data && data.length > 0) {
