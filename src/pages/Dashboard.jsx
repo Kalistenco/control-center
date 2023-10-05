@@ -1,6 +1,5 @@
 import { Button, Grid, Typography } from '@mui/material'
-import axios from 'axios';
-import React, { useCallback, useEffect } from 'react'
+import React from 'react'
 import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {

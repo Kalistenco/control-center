@@ -16,10 +16,6 @@ const Drones = () => {
     //     return () => clearInterval(interval);
     // }, []);
 
-    useEffect(() => {
-        getDrones()
-    }, [])
-
     const getDrones = async () => {
         try {
             var d = new Date();
@@ -34,8 +30,11 @@ const Drones = () => {
             setError(true);
             setSuccess(false);
         }
-
     }
+
+    useEffect(() => {
+        getDrones()
+    }, [getDrones])
 
     const filterDrones = (data) => {
         if (data && data.length > 0) {

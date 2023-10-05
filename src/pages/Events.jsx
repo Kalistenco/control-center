@@ -24,7 +24,7 @@ export default function Events() {
 
     const getDrones = async () => {
         try {
-            const timeFrom = sessionStorage.getItem("timeFrom");
+            // const timeFrom = sessionStorage.getItem("timeFrom");
             var d = new Date();
             d.setDate(d.getDate() - 5);
             const response = await axios.get(`${process.env.REACT_APP_CONTROL_URL}/control/api/changes`, {
@@ -57,6 +57,8 @@ export default function Events() {
                 return "Ir a locación";
             case 'SPRAY':
                 return "Rociar";
+            default: 
+                return "";
         }
 
     }
@@ -81,6 +83,8 @@ export default function Events() {
                 return mapSatelital(row.data.alert)
             case "TWITTER":
                 return mapTwitter(row.data)
+            default: 
+                return null
         }
     }
 

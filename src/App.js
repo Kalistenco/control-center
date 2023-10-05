@@ -28,10 +28,6 @@ const router = createBrowserRouter([
 
 function App() {
 
-  useEffect(() => {
-    getSync();
-  }, []);
-
   const getSync = useCallback(async () => {
     try {
       await axios.get(`${process.env.REACT_APP_CONTROL_URL}/control/api/syncronize`);
@@ -40,6 +36,9 @@ function App() {
     }
   }, [])
 
+  useEffect(() => {
+    getSync();
+  }, [getSync]);
 
   return (
     <div className="App">
